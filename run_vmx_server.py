@@ -23,6 +23,6 @@ command = '{0} {1} {2} {3} {4}:{5}'.format(config.RUN_VMX_SERVER,
                                            ip,
                                            config.PORT)
 
-r = os.popen('echo {0}|sudo -S {1}'.format('ces', command))
+r = os.popen('sudo -S {0}'.format(command))
 
 config.logging.warning('... End VMX Server run script...')

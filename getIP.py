@@ -26,7 +26,7 @@ def wait_local_ip():
             seconds += 1
             config.logging.info('getIP: Trying to get host box IP ...')
             # Find LocalIp from OS
-            ifconfig = os.popen('ifconfig eth0').read()
+            ifconfig = os.popen('sudo ifconfig eth0').read()
             # Match LocalIp with Regular Expression
             ip_match = re.search('\d{1,3}.\d{1,3}\.\d{1,3}.\d{1,3}', ifconfig)
         else:
@@ -54,7 +54,7 @@ def wait_docker_ip(container):
             seconds += 1
             config.logging.info('getIP: Trying to get container: {0} IP ...'.format(container))
             # Find LocalIp from Docker
-            ifconfig = os.popen('echo {0}|sudo -S {1}'.format('ces', get_docker_ip_command)).read()
+            ifconfig = os.popen('sudo -S {0}'.format(get_docker_ip_command)).read()
             ifconfig = ifconfig[:-1]
             # Match LocalIp with Regular Expression
             ip_match = re.search('\d{1,3}.\d{1,3}\.\d{1,3}.\d{1,3}', ifconfig)

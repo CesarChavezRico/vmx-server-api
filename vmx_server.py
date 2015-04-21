@@ -48,7 +48,7 @@ class VMXserver():
         Inits a communication with a VMXserver
         """
         self.ip = getIP.wait_docker_ip(config.CONTAINER)
-        self.port = '8081'
+        self.port = str(config.PORT)
         if self._server_alive():
             pass
         else:

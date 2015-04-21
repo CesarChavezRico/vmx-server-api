@@ -7,7 +7,7 @@ import logging
 
 # Logging
 logging.basicConfig(format='%(asctime)s - [%(levelname)s]: %(message)s',
-                    filename='/home/cesar/logs/vmx_server_api.log',
+                    filename='/home/Cesar/logs/vmx_server_api.log',
                     level=logging.DEBUG)
 
 logging.getLogger("requests").setLevel(logging.WARNING)
@@ -21,4 +21,4 @@ RUN_VMX_SERVER = 'docker exec {0} /vmx/build/./VMXserver'.format(CONTAINER)
 VMX_DIR = '/vmx'
 SESSION = 'main_VMXserver'
 MODEL = 'none'
-PORT = 8081
+PORT = 80
