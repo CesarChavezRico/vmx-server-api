@@ -8,6 +8,7 @@ import config
 import sys
 from getIP import wait_local_ip, GetIpException
 from vmx_server import VMXserver, VMXserverException
+from server_utils import shutdown_server
 
 app = Flask(__name__)
 vmx = None
@@ -15,6 +16,12 @@ vmx = None
 @app.route('/')
 def title():
     return 'VMXserver API'
+
+
+@app.route('/shutdown')
+def shutdown():
+    shutdown_server()
+    return 'Server shutting down'
 
 
 @app.route('/get_models')
