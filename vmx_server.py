@@ -15,6 +15,22 @@ class VMXserver():
     ip = None
     port = None
 
+    def _valid_image(self, url):
+        """
+        Makes a simple request to verify that there's a valid image in the URL
+        :return: True if image OK, False otherwise
+        """
+        try:
+            config.logging.debug('Checking if there\'s and image @ {0}'.format(url))
+            r = requests.get(url)
+            if "Error" not in r.text:
+                return True
+            else:
+                return False
+        except requests.RequestException as e:
+            config.logging.error('Requests Exception: {0}'.format(e.__str__()))
+            return False
+
     def _server_alive(self):
         """
         Makes a simple request to tha VMXserver to check it's status
@@ -60,13 +76,16 @@ class VMXserver():
             :param url:
             :return: JSON of detected objects
         """
-        data = '{{"command":"process_image",' \
-               '  "images":' \
-               '     [{{"image":"{0}"}}]' \
-               '}}'.format(url)
+        if self._valid_image(url):
+            data = '{{"command":"process_image",' \
+                   '  "images":' \
+                   '     [{{"image":"{0}"}}]' \
+                   '}}'.format(url)
 
-        r = requests.post("http://{0}:{1}".format(self.ip, self.port), data=data)
-        return r.text
+            r = requests.post("http://{0}:{1}".format(self.ip, self.port), data=data)
+            return r.text
+        else:
+            return None
 
     def get_parameters(self):
         """

@@ -46,7 +46,11 @@ def process_image():
     model = request.args.get('model')
 
     vmx.load_model(model)
-    return vmx.process_image(image)
+    r = vmx.process_image(image)
+    if r:
+        return r
+    else:
+        return 'Error loading image from URL: {0}'.format(image)
 
 
 if __name__ == '__main__':
