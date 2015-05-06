@@ -24,8 +24,10 @@ class VMXserver():
             config.logging.debug('Checking if there\'s and image @ {0}'.format(url))
             r = requests.get(url)
             if "Error" not in r.text:
+                config.logging.debug('Image found!')
                 return True
             else:
+                config.logging.warning('Image not found @ {0}'.format(url))
                 return False
         except requests.RequestException as e:
             config.logging.error('Requests Exception: {0}'.format(e.__str__()))
